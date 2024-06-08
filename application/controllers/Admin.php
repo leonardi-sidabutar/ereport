@@ -20,6 +20,14 @@ class Admin extends CI_Controller
 	{
 		$data['aktif'] = 'home';
 		$data['judul'] = 'E Report - Admin Dashboard';
+		$this->db->from('tbl_pekerjaan');
+		$data['pekerjaan'] = $this->db->count_all_results();
+		$this->db->from('tbl_laporan');
+		$data['laporan'] = $this->db->count_all_results();
+		$this->db->from('tbl_area');
+		$data['area'] = $this->db->count_all_results();
+		$this->db->from('tbl_auth');
+		$data['auth'] = $this->db->count_all_results();
 
 		$this->load->view('template/header',$data);
 		$this->load->view('template/sidebar', $data);
@@ -119,6 +127,35 @@ class Admin extends CI_Controller
 		};
 	}
 
+	public function area_delete($id){
+        $this->db->where('id_area', $id);
+        $query = $this->db->delete('tbl_area');
+
+		if($query){
+			$this->session->set_flashdata('message', '
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Berhasil!</strong>
+				Data Area Berhasil Di Hapus
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			');
+			redirect('admin/area');
+		};
+	}
+
+	public function laporan(){
+		$data['aktif'] = 'laporan';
+		$data['judul'] = 'E Report - Admin Dashboard Laporan';
+		$data['pekerjaan']  = $this->db->get('tbl_laporan')->result_array();
+
+		$this->load->view('template/header',$data);
+		$this->load->view('template/sidebar', $data);
+		$this->load->view('user/laporan',$data);
+		$this->load->view('template/footer');
+	}
+
 	public function laporan_add(){
 		$data['aktif'] = 'laporan_add';
 		$data['judul'] = 'E Report - Admin Dashboard Laporan';
@@ -132,27 +169,26 @@ class Admin extends CI_Controller
 
 	public function laporan_create(){
 
-		var_dump($_POST);
-
-		die;
-
 		// Check Apakah Datanya Terisi Semua
 		$data = [
-			'area'   => $_POST['area'],
+			'pengerjaan'   => $_POST['pengerjaan'],
+			'tanggal'      => $_POST['date'],
+			'q_progress'   => $_POST['progress'],
+			'id_pekerjaan' => $_POST['date']
 		];
-		$query = $this->db->insert('tbl_area', $data);
+		$query = $this->db->insert('tbl_laporan', $data);
 
 		if($query){
 			$this->session->set_flashdata('message', '
 			<div class="alert alert-success alert-dismissible fade show" role="alert">
 				<strong>Berhasil!</strong>
-				Data Area Berhasil Di Tambah
+				Data Laporan Berhasil Di Tambah
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			');
-			redirect('user/laporan');
+			redirect('admin/laporan');
 		};
 	}
 }

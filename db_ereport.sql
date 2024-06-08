@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Waktu pembuatan: 08 Jun 2024 pada 07.53
+-- Waktu pembuatan: 08 Jun 2024 pada 08.43
 -- Versi server: 8.2.0
 -- Versi PHP: 8.0.30
 
@@ -39,10 +39,6 @@ CREATE TABLE IF NOT EXISTS `tbl_area` (
 --
 
 INSERT INTO `tbl_area` (`id_area`, `area`) VALUES
-(1, 'PT Pacific Palmindo Industri'),
-(2, 'PT Artindo Megah Steel'),
-(3, 'PT Perkebunan'),
-(4, 'PT Area Baru'),
 (5, 'Medan Amplas');
 
 -- --------------------------------------------------------
@@ -82,7 +78,14 @@ CREATE TABLE IF NOT EXISTS `tbl_laporan` (
   `q_progress` double NOT NULL,
   `id_pekerjaan` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `tbl_laporan`
+--
+
+INSERT INTO `tbl_laporan` (`id`, `pengerjaan`, `tanggal`, `q_progress`, `id_pekerjaan`) VALUES
+(1, 'pengerjaan 1', '2024-06-12', 20, 2024);
 
 -- --------------------------------------------------------
 

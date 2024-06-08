@@ -30,6 +30,7 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Area</th>
+                                        <th style="width: 40px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -37,6 +38,9 @@
                                     <tr>
                                         <td><?=$no++?></td>
                                         <td><?=$a['area']?></td>
+                                        <td><a href="<?=base_url('admin/area_delete/'.$a['id_area'])?>"
+                                                class="btn btn-outline-danger btn-block"
+                                                fdprocessedid="gziqbi"><span>Hapus</span></a></td>
                                     </tr>
                                     <?php endforeach?>
                                 </tbody>

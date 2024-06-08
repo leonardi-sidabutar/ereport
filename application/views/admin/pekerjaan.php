@@ -48,7 +48,8 @@
                                         <td><span class="badge bg-warning">55%</span></td>
                                         <td><?=$p['date_start']?></td>
                                         <td><?=$p['date_end']?></td>
-                                        <td><a class="btn btn-outline-primary btn-block" fdprocessedid="gziqbi"><i
+                                        <td><a onclick="alert('Anda Akan Menghapus Data Ini!')"
+                                                class="btn btn-outline-primary btn-block" fdprocessedid="gziqbi"><i
                                                     class="far fa-eye mr-2"></i><span>Detail</span></a>
                                         </td>
                                     </tr>

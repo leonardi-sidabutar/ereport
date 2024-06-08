@@ -34,7 +34,7 @@
                 <div class="col-4">
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>10</h3>
+                            <h3><?=$laporan?></h3>
                             <p>Data Laporan</p>
                         </div>
                         <div class="icon">
