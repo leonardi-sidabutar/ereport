@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `tbl_auth` (
   `password` varchar(255) NOT NULL,
   `role` varchar(10) NOT NULL,
   PRIMARY KEY (`id_auth`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data untuk tabel `tbl_auth`
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `tbl_laporan` (
   `q_progress` double NOT NULL,
   `id_pekerjaan` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data untuk tabel `tbl_laporan`
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `tbl_pekerjaan` (
   `date_start` varchar(20) NOT NULL,
   `date_end` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data untuk tabel `tbl_pekerjaan`
