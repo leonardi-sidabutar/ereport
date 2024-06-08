@@ -16,7 +16,7 @@ class Auth extends CI_Controller
 
 		// Jika tidak ada user yang berhasil login, kembalikan ke halaman login
 		if ($this->session->userdata('username') && $this->session->userdata('role')==='Admin') {
-			redirect('dashboard');
+			redirect('admin');
 		}
 
 		// Rules Validation
@@ -45,7 +45,7 @@ class Auth extends CI_Controller
 		}
 
 		// Query User
-		$login = $this->db->get_where('tbl_login', ['username' => $username])->row_array();
+		$login = $this->db->get_where('tbl_auth', ['username' => $username])->row_array();
 
 		// Check Data Login (Terdaftar / Tidak di dalam database)
 		if ($login) {
@@ -58,7 +58,7 @@ class Auth extends CI_Controller
 					'role' => $login['role']
 				];
 				$this->session->set_userdata($data);
-			redirect('master/index');
+			redirect('admin');
 			} else {
 				// Jika Password Salah
 				$this->session->set_flashdata('message', '
@@ -82,21 +82,33 @@ class Auth extends CI_Controller
 	public function regist()
 	{
 
-		// Rules Validation
-		$this->form_validation->set_rules('username', 'Username', 'required|trim');
-		$this->form_validation->set_rules('password', 'Password', 'required|trim');
+		// // Rules Validation
+		// $this->form_validation->set_rules('username', 'Username', 'required|trim');
+		// $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
-		if ($this->form_validation->run() == false) {
-			$this->load->view('admin/login');
-		} else {
+		// if ($this->form_validation->run() == false) {
+		// 	$this->load->view('admin/login');
+		// } else {
 
-			$data = [
-				'username' => $this->input->post('username'),
-				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-				'role' => 'Admin'
-			];
-			redirect('admin');
-		}
+		// 	$data = [
+		// 		'username' => $this->input->post('username'),
+		// 		'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+		// 		'role' => 'Admin'
+		// 	];
+		// 	redirect('admin');
+		// }
+
+		// $data = [
+		// 	'username'=>'user',
+		// 	'password'=>password_hash('user',PASSWORD_DEFAULT),
+		// 	'role'=>'User'
+		// ];
+		// $query = $this->db->insert('tbl_auth', $data);
+		// if($query){
+		// 	echo 'Oke';
+		// }else{
+		// 	echo 'Gagal';
+		// }
 	}
 
 	public function logout()

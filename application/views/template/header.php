@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="shortcut icon" href="<?=base_url('assets/img/logo.png')?>" type="image/x-icon">
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="<?=base_url('assets/')?>img/logo.png" alt="PT" height="60">

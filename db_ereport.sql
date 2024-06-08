@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Waktu pembuatan: 02 Jun 2024 pada 16.42
+-- Waktu pembuatan: 08 Jun 2024 pada 07.53
 -- Versi server: 8.2.0
 -- Versi PHP: 8.0.30
 
@@ -24,23 +24,92 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_login`
+-- Struktur dari tabel `tbl_area`
 --
 
-DROP TABLE IF EXISTS `tbl_login`;
-CREATE TABLE IF NOT EXISTS `tbl_login` (
-  `id` int NOT NULL DEFAULT '0',
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `role` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `tbl_area`;
+CREATE TABLE IF NOT EXISTS `tbl_area` (
+  `id_area` int NOT NULL AUTO_INCREMENT,
+  `area` varchar(150) NOT NULL,
+  PRIMARY KEY (`id_area`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `tbl_login`
+-- Dumping data untuk tabel `tbl_area`
 --
 
-INSERT INTO `tbl_login` (`id`, `username`, `password`, `role`) VALUES
-(1, 'admin', '$2y$10$l6DTnLT9rK5Xjb2d8.Zu7e.uyhrl2h6YuGvZkdkOQr3o.bzMQTqd.', 'Admin');
+INSERT INTO `tbl_area` (`id_area`, `area`) VALUES
+(1, 'PT Pacific Palmindo Industri'),
+(2, 'PT Artindo Megah Steel'),
+(3, 'PT Perkebunan'),
+(4, 'PT Area Baru'),
+(5, 'Medan Amplas');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_auth`
+--
+
+DROP TABLE IF EXISTS `tbl_auth`;
+CREATE TABLE IF NOT EXISTS `tbl_auth` (
+  `id_auth` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(10) NOT NULL,
+  PRIMARY KEY (`id_auth`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `tbl_auth`
+--
+
+INSERT INTO `tbl_auth` (`id_auth`, `username`, `password`, `role`) VALUES
+(1, 'admin', '$2y$10$hPHQTFkqWilGce/Dz3aaO.LnKSHlaL.ztdr4OmqrKxQfveoiyTMzm', 'Admin'),
+(2, 'user', '$2y$10$gpklc0uo7BQkBunB54nxaO2QiugxfWGCRn8RYyHh.w2SrW0fnc2pq', 'User');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_laporan`
+--
+
+DROP TABLE IF EXISTS `tbl_laporan`;
+CREATE TABLE IF NOT EXISTS `tbl_laporan` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `pengerjaan` varchar(150) NOT NULL,
+  `tanggal` varchar(100) NOT NULL,
+  `q_progress` double NOT NULL,
+  `id_pekerjaan` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_pekerjaan`
+--
+
+DROP TABLE IF EXISTS `tbl_pekerjaan`;
+CREATE TABLE IF NOT EXISTS `tbl_pekerjaan` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `task` varchar(100) NOT NULL,
+  `q_plan` double NOT NULL,
+  `id_area` int NOT NULL,
+  `date_start` varchar(20) NOT NULL,
+  `date_end` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `tbl_pekerjaan`
+--
+
+INSERT INTO `tbl_pekerjaan` (`id`, `task`, `q_plan`, `id_area`, `date_start`, `date_end`) VALUES
+(3, 'Pengerjaan Galian', 130, 2, '2024-06-15', '2024-06-12'),
+(2, 'Penggalian', 120, 1, '2024-07-05', '2024-06-12'),
+(4, 'Pekerjaan test', 230, 2, '2024-06-07', '2024-06-05'),
+(5, 'Pekerjaan Penjajaran PIPA PE', 804, 4, '2024-06-06', '2024-06-11');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

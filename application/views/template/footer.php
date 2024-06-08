@@ -43,6 +43,9 @@
 <script src="<?= base_url('assets/') ?>plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets/') ?>dist/js/adminlte.min.js"></script>
+
+<script src="<?= base_url('assets/') ?>
+plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE for demo purposes -->
 
 <script>
