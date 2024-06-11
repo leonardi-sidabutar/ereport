@@ -31,24 +31,36 @@
                                         <th style="width: 10px">#</th>
                                         <th>Pekerjaan</th>
                                         <th>Perencanaan</th>
-                                        <th>Progress</th>
-                                        <th style="width: 40px">Status</th>
+                                        <th style="width: 40px">Progress</th>
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
                                         <th style="width:120px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no=1; foreach($pekerjaan as $p):?>
+                                    <?php $no=1; foreach($jobs as $p):?>
                                     <tr>
                                         <td><?=$no++?></td>
-                                        <td><?=$p['task']?></td>
-                                        <td><?=$p['q_plan']?></td>
-                                        <td><?=$p['id_area']?></td>
-                                        <td><span class="badge bg-warning">55%</span></td>
-                                        <td><?=$p['date_start']?></td>
-                                        <td><?=$p['date_end']?></td>
-                                        <td><a onclick="alert('Anda Akan Menghapus Data Ini!')"
+                                        <td><?=$p->task?></td>
+                                        <td><?=$p->q_plan?></td>
+                                        <td>
+                                            <span class="badge
+											<?php
+												if($p->progress_percentage > 80){
+													echo 'bg-success';
+												}else if($p->progress_percentage >40){
+													echo 'bg-warning';
+												}else{
+													echo 'bg-danger';
+												}
+											?>
+											">
+                                                <?=number_format($p->progress_percentage,2)?>%
+                                            </span>
+                                        </td>
+                                        <td><?=$p->date_start?></td>
+                                        <td><?=$p->date_end?></td>
+                                        <td><a href="<?=base_url('admin/fpdf/'.$p->id_area)?>"
                                                 class="btn btn-outline-primary btn-block" fdprocessedid="gziqbi"><i
                                                     class="far fa-eye mr-2"></i><span>Detail</span></a>
                                         </td>
@@ -84,6 +96,7 @@
         </div>
     </section>
 </div>
+
 
 
 

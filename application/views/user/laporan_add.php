@@ -48,6 +48,22 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <label for="tebal">Tebal</label>
+                                            <input type="number" class="form-control" id="tebal"
+                                                placeholder="Tebal (Kedalaman) : cm" name="tebal">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="diameter">Diameter</label>
+                                            <input type="number" class="form-control" id="diameter"
+                                                placeholder="Diameter : mm" name="diameter">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
                                             <label for="progress">Quantity Progress</label>
                                             <input type="number" class="form-control" id="progress"
                                                 placeholder="Quantity Progress" name="progress">

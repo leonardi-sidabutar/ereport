@@ -56,7 +56,6 @@
                         </li>
                     </ul>
                 </li>
-                <?php endif;?>
                 <li class="nav-item <?=$aktif==='area' || $aktif==='area_add' ? 'menu-is-opening menu-open' : ''?>">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-map-marked-alt"></i>
@@ -85,6 +84,7 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif;?>
                 <li
                     class="nav-item <?=$aktif==='laporan' || $aktif==='laporan_add' ? 'menu-is-opening menu-open' : ''?>">
                     <a href="#" class="nav-link">
@@ -104,6 +104,9 @@
                                 <p>Data</p>
                             </a>
                         </li>
+                        <?php
+						if($role === 'User'):
+						?>
                         <li class="nav-item">
                             <a href="<?=base_url('admin/laporan_add')?>"
                                 class="nav-link <?=$aktif==='laporan_add' ? 'active' : ''  ?>">
@@ -112,8 +115,44 @@
                                 <p>Tambah</p>
                             </a>
                         </li>
+                        <?php endif;?>
                     </ul>
                 </li>
+                <?php if($role==='Admin'):?>
+                <li
+                    class="nav-item <?=$aktif==='pengguna' || $aktif==='pengguna_add' ? 'menu-is-opening menu-open' : ''?>">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Pengguna
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview"
+                        style="display:<?=$aktif==='pengguna' || $aktif==='pengguna_add' ?  'block' : 'none'?>;">
+                        <li class="nav-item">
+                            <a href="<?=base_url('admin/pengguna')?>"
+                                class="nav-link <?=$aktif==='pengguna' ? 'active' : ''  ?>">
+                                <i class="fas fa-caret-right nav-icon"></i>
+                                <i class="fas "></i>
+                                <p>Data</p>
+                            </a>
+                        </li>
+                        <?php
+						if($role === 'User'):
+						?>
+                        <li class="nav-item">
+                            <a href="<?=base_url('admin/pengguna_add')?>"
+                                class="nav-link <?=$aktif==='pengguna_add' ? 'active' : ''  ?>">
+                                <i class=" fas fa-caret-right nav-icon"></i>
+                                <i class="fas "></i>
+                                <p>Tambah</p>
+                            </a>
+                        </li>
+                        <?php endif;?>
+                    </ul>
+                </li>
+                <?php endif;?>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

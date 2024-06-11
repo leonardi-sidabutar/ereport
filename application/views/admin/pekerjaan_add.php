@@ -26,7 +26,7 @@
                         <form method="POST" action="<?=base_url('admin/pekerjaan_create')?>">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label>Pilih Area</label>
                                             <select class="form-control" name="area">
@@ -37,18 +37,56 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Uraian Pekerjaan</label>
+                                            <select class="form-control" name="uraian_pekerjaan">
+                                                <option value="">-- Pilih Uraian Pekerjaan --</option>
+                                                <option value="PEKERJAAN BONGKARAN DAN GALIAN">PEKERJAAN BONGKARAN DAN
+                                                    GALIAN</option>
+                                                <option value="PEKERJAAN PEMASANGAN">PEKERJAAN PEMASANGAN</option>
+                                                <option value="PEKERJAAN KHUSUS">PEKERJAAN KHUSUS</option>
+                                                <option value="PEKERJAAN PERBAIKAN">PEKERJAAN PERBAIKAN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label for="pekerjaan">Pekerjaan</label>
                                             <input type="text" class="form-control" id="pekerjaan"
                                                 placeholder="Pekerjaan" name="pekerjaan">
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label for="plan">Quantity Plan</label>
                                             <input type="number" class="form-control" id="plan"
-                                                placeholder="Quantity Plan" name="plan">
+                                                placeholder="Quantity Plan" name="plan" step="0.001">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="satuan">Satuan</label>
+                                            <input type="text" class="form-control" id="satuan" placeholder="M'"
+                                                name="satuan">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="volume">Volume</label>
+                                            <input type="number" class="form-control" id="volume" placeholder="volume"
+                                                step="0.001" name="volume">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="price">Harga Satuan</label>
+                                            <input type="number" class="form-control" id="price" placeholder=""
+                                                name="price" step="0.001">
                                         </div>
                                     </div>
                                 </div>

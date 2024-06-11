@@ -7,6 +7,28 @@ class Admin_model extends CI_Model {
         parent::__construct();
     }
 
+	// Data Pekerjaan
+	public function getAllTask(){
+		$query = $this->db->select('tbl_pekerjaan.*, IFNULL(SUM(tbl_laporan.q_progress * tbl_pekerjaan.harga_satuan), 0) AS total_harga, IFNULL((SUM(tbl_laporan.q_progress) / tbl_pekerjaan.q_plan * 100), 0) AS progress_percentage')
+			->from('tbl_pekerjaan')
+			->join('tbl_laporan', 'tbl_pekerjaan.id = tbl_laporan.id_pekerjaan', 'left')
+			->group_by('tbl_pekerjaan.id')
+			->get();
+		return $query->result();
+	}
+
+	public function getTaskArea($id_area){
+		$query = $this->db->select('tbl_pekerjaan.*, tbl_area.area, IFNULL(SUM(tbl_laporan.q_progress * tbl_pekerjaan.harga_satuan), 0) AS total_harga, IFNULL((SUM(tbl_laporan.q_progress) / tbl_pekerjaan.q_plan * 100), 0) AS progress_percentage')
+			->from('tbl_pekerjaan')
+			->join('tbl_laporan', 'tbl_pekerjaan.id = tbl_laporan.id_pekerjaan', 'left')
+			->join('tbl_area', 'tbl_pekerjaan.id_area = tbl_area.id_area', 'left') // Join dengan tabel tbl_area
+			->where('tbl_pekerjaan.id_area', $id_area)
+			->group_by('tbl_pekerjaan.id')
+			->get();
+		return $query->result();
+	}
+	
+
 	// Function Get All Data
 	public function getAllData() {
         // Query untuk mengambil semua data dari tabel

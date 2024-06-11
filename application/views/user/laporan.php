@@ -32,7 +32,6 @@
                                         <th>Pengerjaan</th>
                                         <th>Progress</th>
                                         <th>Tanggal</th>
-                                        <th style="width:120px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,23 +41,24 @@
                                         <td><?=$p['pengerjaan']?></td>
                                         <td><span class="badge bg-warning"><?=$p['q_progress']?>%</span></td>
                                         <td><?=$p['tanggal']?></td>
-                                        <td><a class="btn btn-outline-primary btn-block" fdprocessedid="gziqbi"><i
-                                                    class="far fa-eye mr-2"></i><span>Detail</span></a>
-                                        </td>
                                     </tr>
                                     <?php endforeach?>
                                 </tbody>
                             </table>
                         </div>
-
                         <div class="card-footer clearfix">
                             <div class="row">
                                 <div class="col-6">
+                                    <?php
+									$role = $this->session->userdata('role');
+									if($role === 'User') :
+									?>
                                     <a href="<?=base_url('admin/laporan_add')?>"
                                         class="btn btn-outline-success btn-block" style="width:200px">
                                         <i class="fas fa-plus mr-2"></i>
                                         <span>Input Laporan Baru</span>
                                     </a>
+                                    <?php endif;?>
                                 </div>
                                 <div class="col-6">
                                     <ul class="pagination pagination-sm m-0 float-right">
