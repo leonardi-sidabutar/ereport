@@ -233,8 +233,10 @@ class Admin extends CI_Controller
 	}
 
 	public function approve($id){
+
+		$this->db->set('approve',1);
 		$this->db->where('id',$id);
-		$approve = $this->db->update('tbl_laporan',['approve'=>1]);
+		$approve = $this->db->update('tbl_laporan');
 
 		if($approve){
 			$this->session->set_flashdata('message', '

@@ -30,7 +30,7 @@ class Admin_model extends CI_Model {
 	}
 
 	public function getReport(){
-		$query = $this->db->select('tbl_laporan.*, tbl_pekerjaan.*', 'tbl_area.*')
+		$query = $this->db->select('tbl_laporan.*, tbl_pekerjaan.task', 'tbl_area.*')
 			->from('tbl_laporan')
 			->join('tbl_pekerjaan','tbl_laporan.id_pekerjaan = tbl_pekerjaan.id')
 			->group_by('tbl_laporan.id')
