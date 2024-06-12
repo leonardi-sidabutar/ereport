@@ -9,9 +9,10 @@ class Admin_model extends CI_Model {
 
 	// Data Pekerjaan
 	public function getAllTask(){
-		$query = $this->db->select('tbl_pekerjaan.*, IFNULL(SUM(tbl_laporan.q_progress * tbl_pekerjaan.harga_satuan), 0) AS total_harga, IFNULL((SUM(tbl_laporan.q_progress) / tbl_pekerjaan.q_plan * 100), 0) AS progress_percentage')
+		$query = $this->db->select('tbl_pekerjaan.*,tbl_area.area, IFNULL(SUM(tbl_laporan.q_progress * tbl_pekerjaan.harga_satuan), 0) AS total_harga, IFNULL((SUM(tbl_laporan.q_progress) / tbl_pekerjaan.q_plan * 100), 0) AS progress_percentage')
 			->from('tbl_pekerjaan')
 			->join('tbl_laporan', 'tbl_pekerjaan.id = tbl_laporan.id_pekerjaan', 'left')
+			->join('tbl_area','tbl_pekerjaan.id_area = tbl_area.id_area','left')
 			->group_by('tbl_pekerjaan.id')
 			->get();
 		return $query->result();
@@ -27,7 +28,15 @@ class Admin_model extends CI_Model {
 			->get();
 		return $query->result();
 	}
-	
+
+	public function getReport(){
+		$query = $this->db->select('tbl_laporan.*, tbl_pekerjaan.*', 'tbl_area.*')
+			->from('tbl_laporan')
+			->join('tbl_pekerjaan','tbl_laporan.id_pekerjaan = tbl_pekerjaan.id')
+			->group_by('tbl_laporan.id')
+			->get();
+		return $query->result();
+	}
 
 	// Function Get All Data
 	public function getAllData() {

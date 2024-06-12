@@ -25,7 +25,6 @@
                 </li>
                 <?php
 				$role = $this->session->userdata('role');
-				if($role === 'Admin'):
 				?>
                 <li
                     class="nav-item <?=$aktif==='pekerjaan'||$aktif==='pekerjaan_add' ? 'menu-is-opening menu-open' : ''?>">
@@ -46,6 +45,7 @@
                                 <p>Data</p>
                             </a>
                         </li>
+                        <?php if($role === 'Admin'):?>
                         <li class="nav-item">
                             <a href="<?=base_url('admin/pekerjaan_add')?>"
                                 class="nav-link <?=$aktif==='pekerjaan_add' ? 'active' : ''  ?>">
@@ -54,8 +54,10 @@
                                 <p>Tambah</p>
                             </a>
                         </li>
+                        <?php endif;?>
                     </ul>
                 </li>
+                <?php if($role === 'Admin'):?>
                 <li class="nav-item <?=$aktif==='area' || $aktif==='area_add' ? 'menu-is-opening menu-open' : ''?>">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-map-marked-alt"></i>

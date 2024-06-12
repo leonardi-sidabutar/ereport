@@ -157,6 +157,7 @@ class Admin extends CI_Controller
 		$data['aktif'] = 'laporan';
 		$data['judul'] = 'E Report - Admin Dashboard Laporan';
 		$data['pekerjaan']  = $this->db->get('tbl_laporan')->result_array();
+		$data['report'] = $this->Admin_model->getReport();
 
 		$this->load->view('template/header',$data);
 		$this->load->view('template/sidebar', $data);
@@ -168,6 +169,19 @@ class Admin extends CI_Controller
 		$data['aktif'] = 'laporan_add';
 		$data['judul'] = 'E Report - Admin Dashboard Laporan';
 		$data['pekerjaan']  = $this->db->get('tbl_pekerjaan')->result_array();
+		$data['laporan_id'] = null;
+
+		$this->load->view('template/header',$data);
+		$this->load->view('template/sidebar', $data);
+		$this->load->view('user/laporan_add',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function laporan_id($id){
+		$data['aktif'] = 'laporan_add';
+		$data['judul'] = 'E Report - Admin Dashboard Laporan';
+		$data['pekerjaan']  = $this->db->get('tbl_pekerjaan')->result_array();
+		$data['laporan_id'] = $id;
 
 		$this->load->view('template/header',$data);
 		$this->load->view('template/sidebar', $data);
@@ -218,6 +232,26 @@ class Admin extends CI_Controller
 		$this->load->view('print.php');
 	}
 
+	public function approve($id){
+		$this->db->where('id',$id);
+		$approve = $this->db->update('tbl_laporan',['approve'=>1]);
+
+		if($approve){
+			$this->session->set_flashdata('message', '
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>Berhasil!</strong>
+				Data Laporan Berhasil DiApprove
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			');
+			redirect('admin/laporan');
+		}else{
+			echo 'gagal';
+		}
+	}
+
 	public function fpdf($id_area){
 		error_reporting(0); // AGAR ERROR MASALAH VERSI PHP TIDAK MUNCUL
 		$report = $this->Admin_model->getTaskArea($id_area);
@@ -259,14 +293,66 @@ class Admin extends CI_Controller
 		$no=0;
 		foreach ($report as $data){
 			$no++;
-			$pdf->Cell(10,6,$no,1,0, 'C');
-			$pdf->Cell(60,6,$data->sub_task,1,0);
-			$pdf->Cell(20,6,$data->satuan,1,0,'C');
-			$pdf->Cell(20,6,$data->volume,1,0,'C');
-			$pdf->Cell(40,6,'Rp ' . number_format($data->harga_satuan, 0, ',', '.'),1,0,'C');
-			$pdf->Cell(40,6,'Rp. '. number_format($data->total_harga, 0, ',', '.'),1,1,'C');
+
+			// Special Case pada sub_task
+
+			$cellWidth  = 60;
+			$cellHeight = 6;
+
+			// Periksa Apakah Teksnya melebihu kolom?
+			if($data->sub_task < $cellWidth){
+				// Jika Tidak
+				$line = 1;
+			}else{
+				// Jika Ya,
+				// Maka hitung ketinggian yang dibutuhkan untuk sel akan dirapikan dengan
+				// Memisahkan teks agar sesuai dengan lebar sel
+				// lalu kemudian Hitung berapa banayak baris yang dibutuhkan agar teks pas dengan sel
+
+				$textLength=strlen($data->sub_task);	//total panjang teks
+				$errMargin=5;		//margin kesalahan lebar sel, untuk jaga-jaga
+				$startChar=0;		//posisi awal karakter untuk setiap baris
+				$maxChar=0;			//karakter maksimum dalam satu baris, yang akan ditambahkan nanti
+				$textArray=array();	//untuk menampung data untuk setiap baris
+				$tmpString="";		//untuk menampung teks untuk setiap baris (sementara)
+
+				while($startChar < $textLength){
+					// Perulangan Sampai Akhir Teks
+					while($pdf->GetStringWidth($tmpString) < ($cellWidth-$errMargin) && ($startChar + $maxChar) < $textLength){
+						$maxChar++;
+						$tmpString=substr($data->sub_task,$startChar,$maxChar);
+					}
+					// Pindah ke baris berikutnya
+					$startChar=$startChar+$maxChar;
+					// Kemudian tambahkan ke dalam array sehingga kita tahu berapa banyak baris yang dibutuhkan
+					array_push($textArray,$tmpString);
+					// Reset variable penampung
+					$maxChar=0;
+					$tmpString='';
+				}
+				// Dapatkan jumlah baris
+				$line=count($textArray);
+			}
+
+			// Special Case pada sub_task
+			$pdf->Cell(10,($line * $cellHeight),$no,1,0, 'C');
+
+			//memanfaatkan MultiCell sebagai ganti Cell
+			//atur posisi xy untuk sel berikutnya menjadi di sebelahnya.
+			//ingat posisi x dan y sebelum menulis MultiCell
+			$xPos=$pdf->GetX();
+			$yPos=$pdf->GetY();
+			$pdf->MultiCell($cellWidth,$cellHeight,$data->sub_task,1);			
+			//kembalikan posisi untuk sel berikutnya di samping MultiCell 
+			//dan offset x dengan lebar MultiCell
+			$pdf->SetXY($xPos + $cellWidth , $yPos);
+	
+			$pdf->Cell(20,($line * $cellHeight),$data->satuan,1,0,'C');
+			$pdf->Cell(20,($line * $cellHeight),$data->volume,1,0,'C');
+			$pdf->Cell(40,($line * $cellHeight),'Rp ' . number_format($data->harga_satuan, 0, ',', '.'),1,0,'C');
+			$pdf->Cell(40,($line * $cellHeight),'Rp. '. number_format($data->total_harga, 0, ',', '.'),1,1,'C');
 			    // Tambahkan jumlah biaya pekerjaan ke total biaya
-				$total_biaya += $data->total_harga;
+			$total_biaya += $data->total_harga;
 		}
 		// MendapatkN PPN 10%
 		$ppn = $total_biaya * (10/100) ;
@@ -275,7 +361,8 @@ class Admin extends CI_Controller
 		$pdf->Cell(40,6,'Rp. '.number_format($ppn, 0, ',', '.'),1,1,'C');
 		$pdf->Cell(150,6,'Total Harga Pembulatan',1,0,'R');
 		$pdf->Cell(40,6,'Rp. '.number_format($total_biaya + $ppn, 0, ',', '.'),1,1,'C');
-		$pdf->Cell(190,30,'Medan, 20 Mar 2024',0,1,'R');
+		$dateNow = date("d-m-Y");
+		$pdf->Cell(190,30,'Medan, '.$dateNow,0,1,'R');
 		$pdf->Cell(190,20,'PT CIPTO SARANA NUSANTARA',0,1,'R');
 		$pdf->Output();
 	}
@@ -290,7 +377,6 @@ class Admin extends CI_Controller
 			'password' 	   => password_hash($_POST['password'],PASSWORD_DEFAULT),
 			'role'	       => 'User'
 		];
-
 
 		// Check apakah ada username yang sama
 		$selected = $this->db->get_where('tbl_auth', array('username' => $_POST['username']))->row_array();

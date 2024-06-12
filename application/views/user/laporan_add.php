@@ -32,7 +32,9 @@
                                             <select class="form-control" name="pekerjaan">
                                                 <option value="">-- Pilih Pekerjaan --</option>
                                                 <?php foreach($pekerjaan as $a) :?>
-                                                <option value="<?=$a['id']?>"><?=$a['task']?></option>
+                                                <option value="<?=$a['id']?>"
+                                                    <?= $laporan_id==$a['id'] ? 'selected' : ''?>>
+                                                    <?=$a['task']?></option>
                                                 <?php endforeach;?>
                                             </select>
                                         </div>

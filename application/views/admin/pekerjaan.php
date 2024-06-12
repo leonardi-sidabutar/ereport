@@ -31,9 +31,8 @@
                                         <th style="width: 10px">#</th>
                                         <th>Pekerjaan</th>
                                         <th>Perencanaan</th>
+                                        <th>Area</th>
                                         <th style="width: 40px">Progress</th>
-                                        <th>Tanggal Mulai</th>
-                                        <th>Tanggal Selesai</th>
                                         <th style="width:120px">Action</th>
                                     </tr>
                                 </thead>
@@ -43,26 +42,35 @@
                                         <td><?=$no++?></td>
                                         <td><?=$p->task?></td>
                                         <td><?=$p->q_plan?></td>
+                                        <td><?=$p->area?></td>
                                         <td>
                                             <span class="badge
 											<?php
 												if($p->progress_percentage > 80){
 													echo 'bg-success';
-												}else if($p->progress_percentage >40){
+												}else if($p->progress_percentage > 40){
+													echo 'bg-info';
+												}else if($p->progress_percentage > 0){
 													echo 'bg-warning';
 												}else{
 													echo 'bg-danger';
 												}
 											?>
 											">
-                                                <?=number_format($p->progress_percentage,2)?>%
+                                                <?=number_format($p->progress_percentage,1)?>%
                                             </span>
                                         </td>
-                                        <td><?=$p->date_start?></td>
-                                        <td><?=$p->date_end?></td>
-                                        <td><a href="<?=base_url('admin/fpdf/'.$p->id_area)?>"
+                                        <td>
+                                            <?php if($this->session->userdata('role') === 'Admin'):?>
+                                            <a href="<?=base_url('admin/fpdf/'.$p->id_area)?>"
                                                 class="btn btn-outline-primary btn-block" fdprocessedid="gziqbi"><i
                                                     class="far fa-eye mr-2"></i><span>Detail</span></a>
+                                            <?php endif;?>
+                                            <?php if($this->session->userdata('role') === 'User'):?>
+                                            <a href="<?=base_url('admin/laporan_id/'.$p->id)?>"
+                                                class="btn btn-outline-info btn-block" fdprocessedid="gziqbi"><i
+                                                    class="fas fa-info-circle mr-2"></i><span>Lapor</span></a>
+                                            <?php endif;?>
                                         </td>
                                     </tr>
                                     <?php endforeach?>
@@ -73,11 +81,13 @@
                         <div class="card-footer clearfix">
                             <div class="row">
                                 <div class="col-6">
+                                    <?php  if( $this->session->userdata('role')==='Admin'):?>
                                     <a href="<?=base_url('admin/pekerjaan_add')?>"
                                         class="btn btn-outline-success btn-block" style="width:200px">
                                         <i class="fas fa-plus mr-2"></i>
                                         <span>Tambah Pekerjaan</span>
                                     </a>
+                                    <?php endif;?>
                                 </div>
                                 <div class="col-6">
                                     <ul class="pagination pagination-sm m-0 float-right">
