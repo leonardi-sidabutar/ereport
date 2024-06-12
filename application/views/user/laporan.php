@@ -59,8 +59,8 @@
                                         <td style="text-align:center">
                                             <?php if($this->session->userdata('role')==='User'):?>
                                             <?php
-												if($p->approve==1):
-											?>
+													if($p->approve==1):
+												?>
                                             <a href="<?=base_url('admin/fpdf/'.$p->id_area)?>"
                                                 class="btn btn-outline-primary btn-block" fdprocessedid="gziqbi">
                                                 <i class="fas fa-file-alt mr-2"></i>
@@ -68,12 +68,14 @@
                                             </a>
                                             <?php endif;?>
                                             <?php endif;?>
+                                            <?php if($this->session->userdata('role')==='Admin'):?>
                                             <a onclick="return confirm('Apakah anda yakin ingin menghapus data laporan ini?')"
                                                 href="<?=base_url('admin/laporan_del/'.$p->id)?>"
                                                 class="btn btn-outline-danger btn-block" fdprocessedid="gziqbi">
                                                 <i class="fas fa-trash mr-2"></i>
                                                 <span>Hapus</span>
                                             </a>
+                                            <?php endif;?>
                                         </td>
                                     </tr>
                                     <div class="modal fade" id="modal-lg<?=$p->id?>">
