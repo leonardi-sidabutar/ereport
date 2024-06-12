@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Waktu pembuatan: 11 Jun 2024 pada 15.23
+-- Waktu pembuatan: 12 Jun 2024 pada 10.11
 -- Versi server: 8.2.0
 -- Versi PHP: 8.0.30
 
@@ -86,6 +86,8 @@ CREATE TABLE IF NOT EXISTS `tbl_laporan` (
   `id_pekerjaan` int NOT NULL,
   `diameter` double NOT NULL,
   `tebal` double NOT NULL,
+  `id_user` int NOT NULL,
+  `approve` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -93,11 +95,9 @@ CREATE TABLE IF NOT EXISTS `tbl_laporan` (
 -- Dumping data untuk tabel `tbl_laporan`
 --
 
-INSERT INTO `tbl_laporan` (`id`, `pengerjaan`, `tanggal`, `q_progress`, `id_pekerjaan`, `diameter`, `tebal`) VALUES
-(7, 'Pengerjaan Pipa', '2024-06-11', 10, 7, 125, 120),
-(8, 'Penjajaran PIPA', '2024-06-11', 100, 9, 125, 0),
-(6, 'asdf', '2024-06-13', 123, 7, 123, 213),
-(9, 'Bongkaran Lap Beton', '', 30, 7, 125, 100);
+INSERT INTO `tbl_laporan` (`id`, `pengerjaan`, `tanggal`, `q_progress`, `id_pekerjaan`, `diameter`, `tebal`, `id_user`, `approve`) VALUES
+(7, 'Pengerjaan Pipa', '2024-06-11', 10, 7, 125, 120, 0, 1),
+(8, 'Penjajaran PIPA', '2024-06-11', 100, 9, 125, 0, 0, 1);
 
 -- --------------------------------------------------------
 
