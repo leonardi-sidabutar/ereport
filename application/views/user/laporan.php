@@ -33,9 +33,7 @@
                                         <th style="text-align:center;width:20px">Progress</th>
                                         <th style="text-align:center;width:100px">Tanggal</th>
                                         <th style="text-align:center;width:20px">Approve</th>
-                                        <?php if($this->session->userdata('role')==='User'):?>
                                         <th style="text-align:center;width:120px">Action</th>
-                                        <?php endif;?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,8 +56,8 @@
 												}
 											?>
                                         </td>
-                                        <?php if($this->session->userdata('role')==='User'):?>
                                         <td style="text-align:center">
+                                            <?php if($this->session->userdata('role')==='User'):?>
                                             <?php
 												if($p->approve==1):
 											?>
@@ -69,8 +67,14 @@
                                                 <span>PDF</span>
                                             </a>
                                             <?php endif;?>
+                                            <?php endif;?>
+                                            <a onclick="return confirm('Apakah anda yakin ingin menghapus data laporan ini?')"
+                                                href="<?=base_url('admin/laporan_del/'.$p->id)?>"
+                                                class="btn btn-outline-danger btn-block" fdprocessedid="gziqbi">
+                                                <i class="fas fa-trash mr-2"></i>
+                                                <span>Hapus</span>
+                                            </a>
                                         </td>
-                                        <?php endif;?>
                                     </tr>
                                     <div class="modal fade" id="modal-lg<?=$p->id?>">
                                         <div class="modal-dialog modal-lg">
@@ -159,12 +163,14 @@
                                                     <button type="button" class="btn btn-default"
                                                         data-dismiss="modal">Close</button>
                                                     <?php if($this->session->userdata('role')==='Admin'):?>
+                                                    <?php if($p->approve == 0):?>
                                                     <a href="<?=base_url('admin/approve/'.$p->id)?>"
                                                         onclick="return confirm('Apakah Anda Yakin Ingin Approve Data Ini?')">
                                                         <button type="submit" class="btn btn-success">
                                                             Approve Sekarang
                                                         </button>
                                                     </a>
+                                                    <?php endif ;?>
                                                     <?php endif ;?>
                                                 </div>
                                             </div>

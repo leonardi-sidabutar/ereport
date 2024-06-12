@@ -177,6 +177,23 @@ class Admin extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
+	public function laporan_del($id){
+				$this->db->where('id', $id);
+				$query=$this->db->delete('tbl_laporan');
+				if($query){
+					$this->session->set_flashdata('message', '
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						<strong>Terhapus!</strong>
+						Data Laporan Berhasil Di Hapus
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					');
+					redirect('admin/laporan');
+				};
+	}
+
 	public function laporan_id($id){
 		$data['aktif'] = 'laporan_add';
 		$data['judul'] = 'E Report - Admin Dashboard Laporan';

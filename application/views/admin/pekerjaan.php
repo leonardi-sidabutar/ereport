@@ -32,8 +32,8 @@
                                         <th>Pekerjaan</th>
                                         <th>Perencanaan</th>
                                         <th>Area</th>
-                                        <th style="width: 40px">Progress</th>
-                                        <th style="width:120px">Action</th>
+                                        <th style="text-align:center;width: 40px">Progress</th>
+                                        <th style="width:40px">Print</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,7 +43,7 @@
                                         <td><?=$p->task?></td>
                                         <td><?=$p->q_plan?></td>
                                         <td><?=$p->area?></td>
-                                        <td>
+                                        <td style="text-align:center">
                                             <span class="badge
 											<?php
 												if($p->progress_percentage > 80){
@@ -63,8 +63,8 @@
                                         <td>
                                             <?php if($this->session->userdata('role') === 'Admin'):?>
                                             <a href="<?=base_url('admin/fpdf/'.$p->id_area)?>"
-                                                class="btn btn-outline-primary btn-block" fdprocessedid="gziqbi"><i
-                                                    class="far fa-eye mr-2"></i><span>Detail</span></a>
+                                                class="btn btn-outline-primary btn-block" fdprocessedid="gziqbi"
+                                                style="width:45px!important"><i class="fas fa-file-alt"></i></a>
                                             <?php endif;?>
                                             <?php if($this->session->userdata('role') === 'User'):?>
                                             <a href="<?=base_url('admin/laporan_id/'.$p->id)?>"

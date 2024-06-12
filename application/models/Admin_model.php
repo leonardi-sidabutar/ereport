@@ -30,12 +30,14 @@ class Admin_model extends CI_Model {
 	}
 
 	public function getReport(){
-		$query = $this->db->select('tbl_laporan.*, tbl_pekerjaan.task', 'tbl_area.*')
-			->from('tbl_laporan')
-			->join('tbl_pekerjaan','tbl_laporan.id_pekerjaan = tbl_pekerjaan.id')
-			->group_by('tbl_laporan.id')
-			->get();
-		return $query->result();
+		$query = $this->db->select('tbl_laporan.*, tbl_pekerjaan.task, tbl_area.*')
+		->from('tbl_laporan')
+		->join('tbl_pekerjaan', 'tbl_laporan.id_pekerjaan = tbl_pekerjaan.id')
+		->join('tbl_area', 'tbl_pekerjaan.id_area = tbl_area.id_area')
+		->group_by('tbl_laporan.id')
+		->get();
+	
+	return $query->result();
 	}
 
 	// Function Get All Data
