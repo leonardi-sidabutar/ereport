@@ -83,6 +83,7 @@
                                                         <th>Nama</th>
                                                         <th>Email</th>
                                                         <th style="width: 40px">Jabatan</th>
+                                                        <th style="width:40px">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -92,6 +93,14 @@
                                                         <td><?=$p['name']?></td>
                                                         <td><?=$p['email']?></td>
                                                         <td><?=$p['jabatan']?></td>
+                                                        <td>
+                                                            <a onclick="return confirm('Apakah anda yakin ingin menghapus data pengguna ini?')"
+                                                                href="<?=base_url('admin/pengguna_delete/'.$p['id_auth'])?>"
+                                                                class="btn btn-outline-danger btn-block"
+                                                                fdprocessedid="gziqbi">
+                                                                <i class="fas fa-trash mr-2"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                     <?php endforeach?>
                                                 </tbody>
@@ -116,7 +125,6 @@
                                                         <li class="page-item"><a class="page-link" href="#">»</a></li>
                                                     </ul>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>

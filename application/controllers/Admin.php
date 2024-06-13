@@ -417,9 +417,38 @@ class Admin extends CI_Controller
 		};
 		}else{
 			$this->session->set_flashdata('message', '
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Gagal!</strong>
 				Username sudah terdaftar!
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			');
+			redirect('admin/pengguna');
+		}
+	}
+
+	public function pengguna_delete($id){
+        $this->db->where('id_auth', $id);
+        $query = $this->db->delete('tbl_auth');
+
+		if($query){
+			$this->session->set_flashdata('message', '
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Terhapus!</strong>
+				Data Pengguna Berhasil Di Hapus
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			');
+			redirect('admin/pengguna');
+		}else{
+			$this->session->set_flashdata('message', '
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Gagal!</strong>
+				Data Pengguna Gagal Di Hapus
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
