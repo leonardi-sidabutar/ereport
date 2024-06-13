@@ -83,6 +83,7 @@
                                                         <th>Nama</th>
                                                         <th>Email</th>
                                                         <th style="width: 40px">Jabatan</th>
+                                                        <th style="width:40px">Role</th>
                                                         <th style="width:40px">Action</th>
                                                     </tr>
                                                 </thead>
@@ -93,6 +94,19 @@
                                                         <td><?=$p['name']?></td>
                                                         <td><?=$p['email']?></td>
                                                         <td><?=$p['jabatan']?></td>
+                                                        <td style="text-align:center">
+                                                            <span class="badge
+															<?php
+																if($p['role'] === 'Admin'){
+																	echo 'bg-primary';
+																}else{
+																	echo 'bg-info';
+																}
+															?>
+															">
+                                                                <?=$p['role']?>
+                                                            </span>
+                                                        </td>
                                                         <td>
                                                             <a onclick="return confirm('Apakah anda yakin ingin menghapus data pengguna ini?')"
                                                                 href="<?=base_url('admin/pengguna_delete/'.$p['id_auth'])?>"
