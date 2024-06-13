@@ -112,7 +112,7 @@
                                                                 href="<?=base_url('admin/pengguna_delete/'.$p['id_auth'])?>"
                                                                 class="btn btn-outline-danger btn-block"
                                                                 fdprocessedid="gziqbi">
-                                                                <i class="fas fa-trash mr-2"></i>
+                                                                <i class="fas fa-trash"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
